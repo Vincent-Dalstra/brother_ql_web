@@ -65,10 +65,24 @@ To start the server, run `./run.py`.
 
 Copy service file, reload system, enable and start the service
 
-    cp /opt/brother_ql_web/systemd/brother_ql_web.service /etc/systemd/system
+    cp brother_ql_web/systemd/brother_ql_web@.service /etc/systemd/system
     systemctl daemon-reload
-    systemctl enable brother_ql_web
-    systemctl start brother_ql_web
+    systemctl enable brother_ql_web@pi.service
+    systemctl start brother_ql_web@pi.service
+
+
+### Bind the server to port 80
+
+Running the server on port 80 means you don't have to specifiy the port to
+connect; however, this requires root priveleges for the process. One solution 
+is to use a firewall to redirect connections from port 80 to a 'registered port'
+
+For example, using iptables:
+
+    sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8013
+
+The web service can now be bound to port 8013, and will receive connections on both ports.
+
 
 ### Usage
 

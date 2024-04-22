@@ -1,0 +1,24 @@
+# Instructions...
+#
+# Copy this file to /lib/systemd/system/ then run (from
+# the 'pi' user) to start as a user service
+# systemctl daemon-reload
+# systemctl enable brother_ql_web@pi.service
+# systemctl restart brother_ql_web@pi.service
+[Unit]
+Description=Web editor to create and print labels
+After=network.target
+StartLimitIntervalSec=60
+StartLimitBurst=4
+
+
+[Service]
+Type = simple
+User=%i
+WorkingDirectory=~
+ExecStart=/usr/bin/python3.9 brother_ql_web/run.py
+Restart=always
+RuntimeMaxSec=10000
+
+[Install]
+WantedBy=multi-user.target

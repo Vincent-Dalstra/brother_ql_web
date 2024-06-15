@@ -16,7 +16,7 @@ StartLimitBurst=4
 Type = simple
 User=%i
 WorkingDirectory=~
-ExecStart=/usr/bin/python3.9 brother_ql_web/run.py
+ExecStart=/usr/bin/python3 brother_ql_web/run.py
 Restart=always
 RuntimeMaxSec=10000
 
